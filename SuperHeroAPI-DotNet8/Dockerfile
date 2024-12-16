@@ -20,9 +20,8 @@ WORKDIR /app
 COPY --from=build /out .
 
 # Expose the port that the application will run on
-EXPOSE 80
-EXPOSE 443
-EXPOSE 8080
+EXPOSE 0.0.0.0:8080
 
 # Set the entry point for the container
-ENTRYPOINT ["dotnet", "SuperHeroAPI-DotNet8.dll"]
+ENTRYPOINT ["Update-Database"]
+CMD ["dotnet", "SuperHeroAPI-DotNet8.dll"]

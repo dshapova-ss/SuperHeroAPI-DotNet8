@@ -1,6 +1,6 @@
 # We choose exact tag (not 'latest'), to be sure that new version won't break creating image
 FROM rapidfort/microsoft-sql-server-2019-ib:latest
-
+USER root
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

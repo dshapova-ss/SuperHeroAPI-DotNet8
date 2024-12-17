@@ -11,5 +11,8 @@ RUN dotnet restore
 # Copy the rest of the application code
 COPY . ./
 
+# Build the application (optional if migrations are being run only)
+RUN dotnet build -c Release --no-restore
+
 # Set the entry point for the migrations service
 CMD ["powershell", "-command", "Update-Database"]

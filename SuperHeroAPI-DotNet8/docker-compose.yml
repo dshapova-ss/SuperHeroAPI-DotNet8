@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     build:
-      context: .
+      context: ./Db
       dockerfile: Dockerfile-db
     container_name: mssql
     ports:

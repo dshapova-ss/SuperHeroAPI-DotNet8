@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=build /out .
 
 # Expose the port that the application will run on
-EXPOSE 0.0.0.0:8080
+EXPOSE 8080
 
 # Set the entry point for the container
 ENTRYPOINT ["Update-Database"]

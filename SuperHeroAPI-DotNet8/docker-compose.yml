@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: rapidfort/microsoft-sql-server-2019-ib:latest
+    container_name: mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Root123!
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.33.10", "-U", "sa", "-P", "Root123!", "-Q", "SELECT 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile-db-migrations
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        sleep 30
+        dotnet ef database update --project SuperHeroAPI-DotNet8.csproj
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    depends_on:
+      - migrations
+    ports:
+      - "0.0.0.0:8080:8080"

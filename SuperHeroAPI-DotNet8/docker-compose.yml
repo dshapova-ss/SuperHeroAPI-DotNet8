@@ -2,27 +2,12 @@ version: '3.8'
 
 services:
   db:
-    image: rapidfort/microsoft-sql-server-2019-ib:latest
-    container_name: mssql
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Root123!
-    ports:
-      - "1433:1433"
-    healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.33.10", "-U", "sa", "-P", "Root123!", "-Q", "CREATE DATABASE SuperHeroDb;"]
-      interval: 30s
-      timeout: 5s
-      retries: 1
-
-  migrations:
-    container_name: migration
     build:
       context: .
-      dockerfile: Dockerfile-db-migrations
-    depends_on:
-      db:
-        condition: service_healthy
+      dockerfile: Dockerfile-db
+    container_name: mssql
+    ports:
+      - "1433:1433"
 
   web:
     container_name: web
@@ -30,6 +15,6 @@ services:
       context: .
       dockerfile: Dockerfile-web
     depends_on:
-      - migrations
+      - db
     ports:
       - "0.0.0.0:8080:8080"

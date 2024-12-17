@@ -27,7 +27,6 @@ services:
       - -c
       - |
         sleep 30
-        dotnet ef database update --project SuperHeroAPI-DotNet8.csproj
 
   web:
     build:

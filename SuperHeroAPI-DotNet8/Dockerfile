@@ -23,5 +23,4 @@ COPY --from=build /out .
 EXPOSE 8080
 
 # Set the entry point for the container
-ENTRYPOINT ["Update-Database"]
 CMD ["dotnet", "SuperHeroAPI-DotNet8.dll"]

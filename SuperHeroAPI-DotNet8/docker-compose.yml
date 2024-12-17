@@ -10,7 +10,7 @@ services:
     ports:
       - "1433:1433"
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.33.10", "-U", "sa", "-P", "Root123!", "-Q", "SELECT 1"]
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.33.10", "-U", "sa", "-P", "Root123!", "-Q", "CREATE DATABASE SuperHeroDb;"]
       interval: 30s
       timeout: 5s
       retries: 1
@@ -23,10 +23,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    entrypoint:
-      - /bin/sh
-      - -c
-      - sleep 30
 
   web:
     container_name: web

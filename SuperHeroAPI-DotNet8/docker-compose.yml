@@ -16,6 +16,7 @@ services:
       retries: 1
 
   migrations:
+    container_name: migration
     build:
       context: .
       dockerfile: Dockerfile-db-migrations
@@ -25,10 +26,10 @@ services:
     entrypoint:
       - /bin/sh
       - -c
-      - |
-        sleep 30
+      - sleep 30
 
   web:
+    container_name: web
     build:
       context: .
       dockerfile: Dockerfile-web

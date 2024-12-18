@@ -10,7 +10,7 @@ services:
   web:
     container_name: web
     build:
-      context: .
+      context: ./SuperHeroAPI-DotNet8
       dockerfile: Dockerfile-web
     depends_on:
       - db
